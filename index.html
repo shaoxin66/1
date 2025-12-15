@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专升本智能刷题宝</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .option-hover:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Gacha Animations */
+        .gacha-capsule {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #FF6B6B 50%, #ffffff 50%);
+            border: 4px solid #333;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2), 5px 10px 20px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+        .gacha-capsule::after {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 10px;
+            background: #333;
+            top: 50%;
+            left: -10%;
+            transform: translateY(-50%);
+            border-radius: 5px;
+            z-index: 21;
+        }
+        .gacha-capsule::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border: 4px solid #333;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 22;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fall-bounce-spin {
+            0% { transform: translateY(-400px) rotate(0deg); opacity: 0; }
+            30% { opacity: 1; }
+            50% { transform: translateY(0) rotate(720deg); }
+            65% { transform: translateY(-100px) rotate(540deg); }
+            80% { transform: translateY(0) rotate(720deg); }
+            90% { transform: translateY(-30px) rotate(680deg); }
+            100% { transform: translateY(0) rotate(720deg); }
+        }
+        
+        @keyframes wobble-shake {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            15% { transform: rotate(-15deg) scale(1.1) skewX(-5deg); }
+            30% { transform: rotate(15deg) scale(1.1) skewX(5deg); }
+            45% { transform: rotate(-10deg) scale(1.1); }
+            60% { transform: rotate(10deg) scale(1.1); }
+            75% { transform: rotate(-5deg) scale(1.1); }
+        }
+
+        @keyframes light-burst {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(4) rotate(180deg); opacity: 0; }
+        }
+        @keyframes item-pop {
+            0% { transform: scale(0) translateY(50px); opacity: 0; }
+            50% { transform: scale(1.2) translateY(-20px); opacity: 1; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+
+        .anim-drop { animation: fall-bounce-spin 1.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards; }
+        .anim-shake { animation: wobble-shake 0.8s ease-in-out infinite; }
+        .anim-burst { animation: light-burst 0.8s ease-out forwards; }
+        .anim-pop { animation: item-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .anim-scale-in { animation: scale-in-center 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+        @keyframes scale-in-center {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #1e293b; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #64748b; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
